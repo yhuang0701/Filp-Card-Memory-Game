@@ -27,6 +27,8 @@ function App() {
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }))
 
+    setFirstChoice(null)
+    setSecondChoice(null)
     setCards(shuffledCards)
 
     // initialize turns
@@ -45,7 +47,6 @@ function App() {
       setDisabled(true)
 
       if (firstChoice.src === secondChoice.src) {
-        console.log("Match!")
         setCards(prevCards => {
           return prevCards.map(card => {
             if (card.src === firstChoice.src) {
@@ -56,14 +57,11 @@ function App() {
           })
         })
       } else {
-        console.log("Not match")
       }
 
       setTimeout(() => updateGame(), 1000)
     }
   }, [firstChoice, secondChoice])
-
-  console.log(cards)
 
   // reset card choices and update turn info
   const updateGame = () => {
@@ -72,6 +70,11 @@ function App() {
     setTurns(prevTurn => prevTurn + 1)
     setDisabled(false)
   }
+
+  // automaticly start the game
+  useEffect(() => {
+    shuffleCards()
+  }, [])
 
   return (
     <div className="App">
@@ -89,6 +92,7 @@ function App() {
           />
         ))}
       </div>
+      <p>Turns: {turns}</p>
     </div>
   );
 }

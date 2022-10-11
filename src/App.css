@@ -18,3 +18,11 @@ button:hover {
   background: #c23866;
   color: #fff;
 }
+
+.card-grid {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  /* row-gap: 20px; */
+}

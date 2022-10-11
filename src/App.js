@@ -3,12 +3,12 @@ import './App.css';
 import SingleCard from './components/SingleCard';
 
 const cardImages = [
-  { "src": "../img/helmet-1.png" },
-  { "src": "../img/potion-1.png" },
-  { "src": "../img/ring-1.png" },
-  { "src": "../img/scroll-1.png" },
-  { "src": "../img/shield-1.png" },
-  { "src": "../img/sword-1.png" }
+  { "src": "../img/helmet-1.png", matched: false },
+  { "src": "../img/potion-1.png", matched: false },
+  { "src": "../img/ring-1.png", matched: false },
+  { "src": "../img/scroll-1.png", matched: false },
+  { "src": "../img/shield-1.png", matched: false },
+  { "src": "../img/sword-1.png", matched: false }
 ]
 
 
@@ -40,13 +40,26 @@ function App() {
   // compare two selected cards
   useEffect(() => {
     if (firstChoice && secondChoice) {
-      firstChoice.src === secondChoice.src
-        ? console.log("Match!")
-        : console.log("Not match")
+      if (firstChoice.src === secondChoice.src) {
+        console.log("Match!")
+        setCards(prevCards => {
+          return prevCards.map(card => {
+            if (card.src === firstChoice.src) {
+              return { ...card, matched: true }
+            } else {
+              return card
+            }
+          })
+        })
+      } else {
+        console.log("Not match")
+      }
 
       updateGame()
     }
   }, [firstChoice, secondChoice])
+
+  console.log(cards)
 
   // reset card choices and update turn info
   const updateGame = () => {

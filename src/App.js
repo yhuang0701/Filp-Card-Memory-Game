@@ -55,7 +55,7 @@ function App() {
         console.log("Not match")
       }
 
-      updateGame()
+      setTimeout(() => updateGame(), 1000)
     }
   }, [firstChoice, secondChoice])
 
@@ -78,6 +78,8 @@ function App() {
             card={card}
             key={card.id}
             handleChoice={handleChoice}
+            flipped={card === firstChoice || card === secondChoice
+              || card.matched}
           />
         ))}
       </div>

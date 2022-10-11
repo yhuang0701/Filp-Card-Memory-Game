@@ -19,6 +19,7 @@ function App() {
   const [turns, setTurns] = useState(0);
   const [firstChoice, setFirstChoice] = useState(null)
   const [secondChoice, setSecondChoice] = useState(null)
+  const [disabled, setDisabled] = useState(false)
 
   // shuffle cards
   const shuffleCards = () => {
@@ -39,7 +40,10 @@ function App() {
 
   // compare two selected cards
   useEffect(() => {
+
     if (firstChoice && secondChoice) {
+      setDisabled(true)
+
       if (firstChoice.src === secondChoice.src) {
         console.log("Match!")
         setCards(prevCards => {
@@ -66,6 +70,7 @@ function App() {
     setFirstChoice(null)
     setSecondChoice(null)
     setTurns(prevTurn => prevTurn + 1)
+    setDisabled(false)
   }
 
   return (
@@ -80,6 +85,7 @@ function App() {
             handleChoice={handleChoice}
             flipped={card === firstChoice || card === secondChoice
               || card.matched}
+            disabled={disabled}
           />
         ))}
       </div>
